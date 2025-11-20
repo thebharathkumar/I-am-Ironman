@@ -1107,3 +1107,239 @@ body::before {
     background: linear-gradient(45deg, #0080ff, #00d4ff);
     box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
 }
+
+/* CRAZY ANIMATIONS */
+
+/* Pulsing HUD Stats */
+.hud-stat {
+    animation: statPulse 3s ease-in-out infinite;
+}
+
+@keyframes statPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* Glowing HUD Time */
+.hud-time {
+    animation: timeGlow 2s ease-in-out infinite;
+}
+
+@keyframes timeGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+    }
+    50% {
+        text-shadow: 0 0 30px rgba(0, 212, 255, 1),
+                     0 0 50px rgba(0, 255, 255, 0.5);
+    }
+}
+
+/* Rotating Quick Action Buttons */
+.hud-action-btn {
+    animation: buttonFloat 3s ease-in-out infinite;
+}
+
+.hud-action-btn:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.hud-action-btn:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.hud-action-btn:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.hud-action-btn:nth-child(4) {
+    animation-delay: 1.5s;
+}
+
+@keyframes buttonFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-5px) rotate(5deg);
+    }
+    75% {
+        transform: translateY(5px) rotate(-5deg);
+    }
+}
+
+/* Pulsing Power Bar */
+.hud-bar-fill {
+    animation: powerPulse 2s ease-in-out infinite;
+}
+
+@keyframes powerPulse {
+    0%, 100% {
+        box-shadow: 0 0 10px #00d4ff;
+    }
+    50% {
+        box-shadow: 0 0 20px #00d4ff, 0 0 30px #00ffff;
+    }
+}
+
+/* Pulsing Crosshair */
+.hud-crosshair {
+    animation: crosshairPulse 2s ease-in-out infinite;
+}
+
+@keyframes crosshairPulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+/* Animated Gallery Items */
+.gallery-item {
+    animation: galleryFloat 4s ease-in-out infinite;
+}
+
+.gallery-item:nth-child(1) { animation-delay: 0s; }
+.gallery-item:nth-child(2) { animation-delay: 0.2s; }
+.gallery-item:nth-child(3) { animation-delay: 0.4s; }
+.gallery-item:nth-child(4) { animation-delay: 0.6s; }
+.gallery-item:nth-child(5) { animation-delay: 0.8s; }
+.gallery-item:nth-child(6) { animation-delay: 1s; }
+.gallery-item:nth-child(7) { animation-delay: 1.2s; }
+.gallery-item:nth-child(8) { animation-delay: 1.4s; }
+
+@keyframes galleryFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Glowing Mode Buttons */
+.mode-btn.active {
+    animation: modeGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes modeGlow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 212, 255, 1),
+                     0 0 50px rgba(0, 255, 255, 0.5);
+    }
+}
+
+/* Particle burst on button clicks */
+.hud-button:active::after,
+.hud-action-btn:active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 212, 255, 0.5);
+    transform: translate(-50%, -50%);
+    animation: clickBurst 0.5s ease-out;
+}
+
+@keyframes clickBurst {
+    to {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+}
+
+/* Panel slide-in animations */
+.panel:not(.hidden) {
+    animation: panelSlideIn 0.5s ease-out;
+}
+
+@keyframes panelSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Status Panel extra glow */
+.status-panel {
+    animation: statusGlow 4s ease-in-out infinite;
+}
+
+@keyframes statusGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(0, 212, 255, 0.8),
+                     0 0 60px rgba(0, 255, 255, 0.3);
+    }
+}
+
+/* Gesture Guide breathing */
+.gesture-guide {
+    animation: guideBreath 3s ease-in-out infinite;
+}
+
+@keyframes guideBreath {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+    }
+}
+
+/* Scan effect more dramatic */
+.hud-scan-effect {
+    animation: hudScan 4s linear infinite;
+    box-shadow: 0 0 20px #00d4ff, 0 0 40px #00ffff;
+}
+
+/* FPS Counter pulsing when high */
+#fps-counter {
+    animation: fpsPulse 1s ease-in-out infinite;
+}
+
+@keyframes fpsPulse {
+    0%, 100% {
+        color: #00ffff;
+        text-shadow: 0 0 5px #00ffff;
+    }
+    50% {
+        color: #00ff00;
+        text-shadow: 0 0 10px #00ff00;
+    }
+}
+
+/* Webcam border pulse */
+#webcam {
+    animation: webcamPulse 2s ease-in-out infinite;
+}
+
+@keyframes webcamPulse {
+    0%, 100% {
+        border-color: #00d4ff;
+        box-shadow: 0 0 10px #00d4ff;
+    }
+    50% {
+        border-color: #00ffff;
+        box-shadow: 0 0 20px #00ffff;
+    }
+}

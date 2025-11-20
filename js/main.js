@@ -8,6 +8,7 @@ import { FileBrowser } from './fileBrowser.js';
 import { ObjectScanner } from './objectScanner.js';
 import { IntroSequence } from './introSequence.js';
 import { HUDController } from './hudController.js';
+import { MouseControls } from './mouseControls.js';
 
 class JARVISInterface {
     constructor() {
@@ -22,6 +23,7 @@ class JARVISInterface {
         this.objectScanner = null;
         this.introSequence = null;
         this.hudController = null;
+        this.mouseControls = null;
 
         this.currentGesture = null;
         this.selectedObject = null;
@@ -94,6 +96,14 @@ class JARVISInterface {
             console.log('Initializing HUD overlay...');
             await this.delay(200);
             this.hudController = new HUDController();
+
+            // Initialize Mouse Controls
+            console.log('Initializing mouse controls...');
+            this.mouseControls = new MouseControls(
+                this.scene3D,
+                this.scene3D.getCamera(),
+                this.scene3D.getRenderer()
+            );
 
             // Setup event listeners
             this.setupEventListeners();

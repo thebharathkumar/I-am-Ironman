@@ -402,10 +402,47 @@ export class Scene3D {
     }
 
     render() {
-        // Auto-rotate objects slightly for effect
-        this.objects.forEach(obj => {
-            obj.rotation.y += 0.001;
-            obj.rotation.x += 0.0005;
+        const time = Date.now() * 0.001; // Time in seconds
+
+        // Crazy animations for objects!
+        this.objects.forEach((obj, index) => {
+            // Auto-rotate with varying speeds
+            obj.rotation.y += 0.002 + (index * 0.0005);
+            obj.rotation.x += 0.001 + (index * 0.0003);
+
+            // Pulsing scale effect (breathing)
+            const pulseScale = 1 + Math.sin(time * 2 + index) * 0.05;
+            const baseScale = obj.scale.x;
+            obj.scale.set(baseScale * pulseScale, baseScale * pulseScale, baseScale * pulseScale);
+
+            // Floating up and down
+            obj.position.y += Math.sin(time * 1.5 + index) * 0.002;
+
+            // Pulsing glow/emission
+            if (obj.material && obj.material.emissiveIntensity !== undefined) {
+                obj.material.emissiveIntensity = 0.3 + Math.sin(time * 3 + index) * 0.2;
+            }
+
+            // Pulsing wireframe opacity
+            if (obj.children.length > 0) {
+                const wireframe = obj.children[0];
+                if (wireframe.material && wireframe.material.opacity !== undefined) {
+                    wireframe.material.opacity = 0.7 + Math.sin(time * 2 + index) * 0.3;
+                    wireframe.material.transparent = true;
+                }
+            }
+
+            // Highlight selected object with extra effects
+            if (obj === this.selectedObject) {
+                // Extra glow for selected object
+                if (obj.material) {
+                    const glowIntensity = 0.5 + Math.sin(time * 5) * 0.3;
+                    obj.material.emissiveIntensity = glowIntensity;
+                }
+
+                // Spin selected object faster
+                obj.rotation.y += 0.01;
+            }
         });
 
         this.renderer.render(this.scene, this.camera);
@@ -415,5 +452,13 @@ export class Scene3D {
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    getCamera() {
+        return this.camera;
+    }
+
+    getRenderer() {
+        return this.renderer;
     }
 }
