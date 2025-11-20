@@ -6,6 +6,7 @@ import { VoiceControl } from './voiceControl.js';
 import { UIPanels } from './uiPanels.js';
 import { FileBrowser } from './fileBrowser.js';
 import { ObjectScanner } from './objectScanner.js';
+import { IntroSequence } from './introSequence.js';
 
 class JARVISInterface {
     constructor() {
@@ -18,87 +19,84 @@ class JARVISInterface {
         this.uiPanels = null;
         this.fileBrowser = null;
         this.objectScanner = null;
+        this.introSequence = null;
 
         this.currentGesture = null;
         this.selectedObject = null;
         this.interactionMode = 'manipulation'; // manipulation, browsing, scanning
 
-        this.setupStartButton();
+        this.startIntroSequence();
     }
 
-    setupStartButton() {
-        const startButton = document.getElementById('start-button');
-        startButton.addEventListener('click', () => {
+    startIntroSequence() {
+        // Create and run intro sequence
+        this.introSequence = new IntroSequence(() => {
+            // When intro completes, initialize the main interface
             this.initialize();
         });
+
+        // Start the intro sequence automatically
+        this.introSequence.start();
     }
 
     async initialize() {
         console.log('Initializing JARVIS Interface...');
 
-        const startupScreen = document.getElementById('startup-screen');
-        const startupStatus = document.querySelector('.startup-status');
-
         try {
             // Initialize Particle System
-            startupStatus.textContent = 'Loading particle system...';
-            await this.delay(500);
+            console.log('Loading particle system...');
+            await this.delay(300);
             this.particleSystem = new ParticleSystem('particle-canvas');
 
             // Initialize 3D Scene
-            startupStatus.textContent = 'Initializing holographic display...';
-            await this.delay(500);
+            console.log('Initializing holographic display...');
+            await this.delay(300);
             this.scene3D = new Scene3D('scene-container');
 
             // Initialize UI Panels
-            startupStatus.textContent = 'Loading interface panels...';
-            await this.delay(500);
+            console.log('Loading interface panels...');
+            await this.delay(300);
             this.uiPanels = new UIPanels();
 
             // Initialize File Browser
-            startupStatus.textContent = 'Initializing file system...';
-            await this.delay(500);
+            console.log('Initializing file system...');
+            await this.delay(300);
             this.fileBrowser = new FileBrowser();
 
             // Initialize Object Scanner
-            startupStatus.textContent = 'Calibrating object scanner...';
-            await this.delay(500);
+            console.log('Calibrating object scanner...');
+            await this.delay(300);
             this.objectScanner = new ObjectScanner();
 
             // Initialize Gesture Recognition
-            startupStatus.textContent = 'Loading gesture recognition...';
-            await this.delay(500);
+            console.log('Loading gesture recognition...');
+            await this.delay(300);
             this.gestureRecognition = new GestureRecognition();
 
             // Initialize Hand Tracking
-            startupStatus.textContent = 'Activating hand tracking...';
-            await this.delay(500);
+            console.log('Activating hand tracking...');
+            await this.delay(300);
             this.handTracking = new HandTracking(this.onHandsDetected.bind(this));
             await this.handTracking.initialize();
 
             // Initialize Voice Control
-            startupStatus.textContent = 'Activating voice recognition...';
-            await this.delay(500);
+            console.log('Activating voice recognition...');
+            await this.delay(300);
             this.voiceControl = new VoiceControl(this.onVoiceCommand.bind(this));
             this.voiceControl.start();
 
             // Setup event listeners
             this.setupEventListeners();
 
-            // Hide startup screen
-            startupStatus.textContent = 'System ready. Welcome, Sir.';
-            await this.delay(1000);
-            startupScreen.classList.add('hidden');
-
             this.initialized = true;
-            console.log('JARVIS Interface initialized successfully');
+            console.log('JARVIS Interface initialized successfully - Welcome, Sir.');
 
             // Start animation loop
             this.animate();
 
         } catch (error) {
             console.error('Initialization error:', error);
-            startupStatus.textContent = 'Error: ' + error.message;
+            alert('Error initializing JARVIS: ' + error.message);
         }
     }
 

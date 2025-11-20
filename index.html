@@ -91,13 +91,79 @@
         <div class="guide-item">🤏 Spread - Zoom</div>
     </div>
 
-    <!-- Startup Screen -->
-    <div id="startup-screen" class="startup-screen">
-        <div class="startup-content">
-            <h1 class="jarvis-title">J.A.R.V.I.S.</h1>
-            <p class="jarvis-subtitle">Just A Rather Very Intelligent System</p>
-            <div class="startup-status">Initializing holographic interface...</div>
-            <button id="start-button" class="start-button">ACTIVATE</button>
+    <!-- Intro/Startup Screen -->
+    <div id="intro-screen" class="intro-screen">
+        <!-- Boot Sequence Stage -->
+        <div id="boot-stage" class="boot-stage">
+            <div class="arc-reactor">
+                <div class="arc-core"></div>
+                <div class="arc-ring arc-ring-1"></div>
+                <div class="arc-ring arc-ring-2"></div>
+                <div class="arc-ring arc-ring-3"></div>
+                <div class="arc-lines">
+                    <div class="arc-line"></div>
+                    <div class="arc-line"></div>
+                    <div class="arc-line"></div>
+                    <div class="arc-line"></div>
+                </div>
+            </div>
+            <div class="boot-text">STARK INDUSTRIES</div>
+            <div class="boot-subtext">INITIALIZING ARC REACTOR</div>
+            <div class="boot-progress">
+                <div class="boot-progress-bar"></div>
+            </div>
+        </div>
+
+        <!-- System Check Stage -->
+        <div id="system-check-stage" class="system-check-stage hidden">
+            <div class="scan-line"></div>
+            <h1 class="jarvis-title-intro">J.A.R.V.I.S.</h1>
+            <p class="jarvis-subtitle-intro">Just A Rather Very Intelligent System</p>
+            <div class="system-checks">
+                <div class="check-item" id="check-1">
+                    <span class="check-icon">⟳</span>
+                    <span class="check-text">Neural Network</span>
+                    <span class="check-status">...</span>
+                </div>
+                <div class="check-item" id="check-2">
+                    <span class="check-icon">⟳</span>
+                    <span class="check-text">Holographic Display</span>
+                    <span class="check-status">...</span>
+                </div>
+                <div class="check-item" id="check-3">
+                    <span class="check-icon">⟳</span>
+                    <span class="check-text">Hand Tracking</span>
+                    <span class="check-status">...</span>
+                </div>
+                <div class="check-item" id="check-4">
+                    <span class="check-icon">⟳</span>
+                    <span class="check-text">Voice Recognition</span>
+                    <span class="check-status">...</span>
+                </div>
+                <div class="check-item" id="check-5">
+                    <span class="check-icon">⟳</span>
+                    <span class="check-text">Gesture Analysis</span>
+                    <span class="check-status">...</span>
+                </div>
+                <div class="check-item" id="check-6">
+                    <span class="check-icon">⟳</span>
+                    <span class="check-text">3D Rendering Engine</span>
+                    <span class="check-status">...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activation Stage -->
+        <div id="activation-stage" class="activation-stage hidden">
+            <div class="activation-circles">
+                <div class="activation-circle circle-1"></div>
+                <div class="activation-circle circle-2"></div>
+                <div class="activation-circle circle-3"></div>
+            </div>
+            <h1 class="jarvis-title-activate">J.A.R.V.I.S.</h1>
+            <p class="jarvis-subtitle-activate">Just A Rather Very Intelligent System</p>
+            <div class="ready-text">SYSTEM READY</div>
+            <button id="start-button" class="start-button">ENGAGE INTERFACE</button>
         </div>
     </div>
 
