@@ -7,6 +7,7 @@ import { UIPanels } from './uiPanels.js';
 import { FileBrowser } from './fileBrowser.js';
 import { ObjectScanner } from './objectScanner.js';
 import { IntroSequence } from './introSequence.js';
+import { HUDController } from './hudController.js';
 
 class JARVISInterface {
     constructor() {
@@ -20,10 +21,14 @@ class JARVISInterface {
         this.fileBrowser = null;
         this.objectScanner = null;
         this.introSequence = null;
+        this.hudController = null;
 
         this.currentGesture = null;
         this.selectedObject = null;
         this.interactionMode = 'manipulation'; // manipulation, browsing, scanning
+
+        // Store instance globally for HUD access
+        window.jarvisInstance = this;
 
         this.startIntroSequence();
     }
@@ -84,6 +89,11 @@ class JARVISInterface {
             await this.delay(300);
             this.voiceControl = new VoiceControl(this.onVoiceCommand.bind(this));
             this.voiceControl.start();
+
+            // Initialize HUD Controller
+            console.log('Initializing HUD overlay...');
+            await this.delay(200);
+            this.hudController = new HUDController();
 
             // Setup event listeners
             this.setupEventListeners();
@@ -285,8 +295,10 @@ class JARVISInterface {
 
         requestAnimationFrame(this.animate.bind(this));
 
-        // Update particle system
-        this.particleSystem.update();
+        // Update particle system (only if enabled)
+        if (this.hudController && this.hudController.getParticlesEnabled()) {
+            this.particleSystem.update();
+        }
 
         // Render 3D scene
         this.scene3D.render();
@@ -295,6 +307,13 @@ class JARVISInterface {
         const objectInfo = this.scene3D.getSelectedObjectInfo();
         if (objectInfo) {
             this.uiPanels.updateObjectInfo(objectInfo);
+        }
+
+        // Simulate power drain/recharge
+        if (this.hudController) {
+            const time = Date.now() / 1000;
+            const power = 70 + Math.sin(time * 0.3) * 30; // Oscillate between 40-100%
+            this.hudController.updatePower(power);
         }
     }
 

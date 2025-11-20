@@ -209,6 +209,20 @@ export class Scene3D {
         this.selectedObject.position.set(0, 0, 0);
     }
 
+    clearObjects() {
+        // Remove all objects except keep at least one
+        while (this.objects.length > 1) {
+            const obj = this.objects.pop();
+            this.scene.remove(obj);
+        }
+
+        // Reset the remaining object
+        if (this.objects.length > 0) {
+            this.selectedObject = this.objects[0];
+            this.resetView();
+        }
+    }
+
     getSelectedObjectInfo() {
         if (!this.selectedObject) {
             return {

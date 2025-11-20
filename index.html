@@ -82,6 +82,58 @@
         <span id="voice-command-text"></span>
     </div>
 
+    <!-- Holographic HUD Overlay -->
+    <div class="hud-overlay" id="hud-overlay">
+        <!-- Top Left - System Stats -->
+        <div class="hud-corner hud-top-left">
+            <div class="hud-stat">
+                <span class="hud-label">POWER:</span>
+                <div class="hud-bar">
+                    <div class="hud-bar-fill" id="power-bar" style="width: 100%"></div>
+                </div>
+            </div>
+            <div class="hud-stat">
+                <span class="hud-label">TRACKING:</span>
+                <span class="hud-value" id="tracking-accuracy">98%</span>
+            </div>
+            <div class="hud-stat">
+                <span class="hud-label">FPS:</span>
+                <span class="hud-value" id="fps-counter">60</span>
+            </div>
+        </div>
+
+        <!-- Top Right - Time & Date -->
+        <div class="hud-corner hud-top-right">
+            <div class="hud-time" id="hud-time">00:00:00</div>
+            <div class="hud-date" id="hud-date">LOADING...</div>
+        </div>
+
+        <!-- Bottom Left - Controls -->
+        <div class="hud-corner hud-bottom-left">
+            <div class="hud-controls">
+                <button class="hud-button" id="toggle-grid">GRID</button>
+                <button class="hud-button" id="toggle-particles">PARTICLES</button>
+                <button class="hud-button" id="reset-all">RESET</button>
+            </div>
+        </div>
+
+        <!-- Bottom Right - Quick Actions -->
+        <div class="hud-corner hud-bottom-right">
+            <button class="hud-action-btn" id="add-random-object" title="Add Random Object">+</button>
+            <button class="hud-action-btn" id="clear-objects" title="Clear All Objects">×</button>
+            <button class="hud-action-btn" id="screenshot" title="Take Screenshot">📷</button>
+        </div>
+
+        <!-- Center Crosshair -->
+        <div class="hud-crosshair">
+            <div class="crosshair-line crosshair-h"></div>
+            <div class="crosshair-line crosshair-v"></div>
+        </div>
+
+        <!-- Scan Effect -->
+        <div class="hud-scan-effect" id="scan-effect"></div>
+    </div>
+
     <!-- Gesture Guide -->
     <div class="gesture-guide" id="gesture-guide">
         <div class="guide-title">GESTURE CONTROLS</div>
@@ -89,6 +141,8 @@
         <div class="guide-item">✋ Open Palm - Menu</div>
         <div class="guide-item">👈 Swipe - Navigate</div>
         <div class="guide-item">🤏 Spread - Zoom</div>
+        <div class="guide-item">👍 Thumbs Up - Confirm</div>
+        <div class="guide-item">✌️ Peace - Scanner</div>
     </div>
 
     <!-- Intro/Startup Screen -->
@@ -162,6 +216,10 @@
             </div>
             <h1 class="jarvis-title-activate">J.A.R.V.I.S.</h1>
             <p class="jarvis-subtitle-activate">Just A Rather Very Intelligent System</p>
+            <div class="creator-credit">
+                <div class="credit-line">MADE & BROUGHT TO YOU BY</div>
+                <div class="credit-name">BHARATH</div>
+            </div>
             <div class="ready-text">SYSTEM READY</div>
             <button id="start-button" class="start-button">ENGAGE INTERFACE</button>
         </div>
