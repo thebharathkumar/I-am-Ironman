@@ -148,6 +148,161 @@ export class Scene3D {
         return torus;
     }
 
+    addCylinder() {
+        const geometry = new THREE.CylinderGeometry(0.4, 0.4, 1.2, 32);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0xffaa00,
+            transparent: true,
+            opacity: 0.7,
+            wireframe: false,
+            emissive: 0xffaa00,
+            emissiveIntensity: 0.3
+        });
+        const cylinder = new THREE.Mesh(geometry, material);
+
+        const wireframe = new THREE.LineSegments(
+            new THREE.EdgesGeometry(geometry),
+            new THREE.LineBasicMaterial({ color: 0xffaa00, linewidth: 2 })
+        );
+        cylinder.add(wireframe);
+
+        cylinder.position.set(
+            (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 2,
+            0
+        );
+
+        this.scene.add(cylinder);
+        this.objects.push(cylinder);
+        this.selectedObject = cylinder;
+
+        return cylinder;
+    }
+
+    addCone() {
+        const geometry = new THREE.ConeGeometry(0.6, 1.2, 32);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0xff6600,
+            transparent: true,
+            opacity: 0.7,
+            wireframe: false,
+            emissive: 0xff6600,
+            emissiveIntensity: 0.3
+        });
+        const cone = new THREE.Mesh(geometry, material);
+
+        const wireframe = new THREE.LineSegments(
+            new THREE.EdgesGeometry(geometry),
+            new THREE.LineBasicMaterial({ color: 0xff6600, linewidth: 2 })
+        );
+        cone.add(wireframe);
+
+        cone.position.set(
+            (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 2,
+            0
+        );
+
+        this.scene.add(cone);
+        this.objects.push(cone);
+        this.selectedObject = cone;
+
+        return cone;
+    }
+
+    addDodecahedron() {
+        const geometry = new THREE.DodecahedronGeometry(0.6);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0x00ffaa,
+            transparent: true,
+            opacity: 0.7,
+            wireframe: false,
+            emissive: 0x00ffaa,
+            emissiveIntensity: 0.3
+        });
+        const dodeca = new THREE.Mesh(geometry, material);
+
+        const wireframe = new THREE.LineSegments(
+            new THREE.EdgesGeometry(geometry),
+            new THREE.LineBasicMaterial({ color: 0x00ffaa, linewidth: 2 })
+        );
+        dodeca.add(wireframe);
+
+        dodeca.position.set(
+            (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 2,
+            0
+        );
+
+        this.scene.add(dodeca);
+        this.objects.push(dodeca);
+        this.selectedObject = dodeca;
+
+        return dodeca;
+    }
+
+    addOctahedron() {
+        const geometry = new THREE.OctahedronGeometry(0.7);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0xaa00ff,
+            transparent: true,
+            opacity: 0.7,
+            wireframe: false,
+            emissive: 0xaa00ff,
+            emissiveIntensity: 0.3
+        });
+        const octa = new THREE.Mesh(geometry, material);
+
+        const wireframe = new THREE.LineSegments(
+            new THREE.EdgesGeometry(geometry),
+            new THREE.LineBasicMaterial({ color: 0xaa00ff, linewidth: 2 })
+        );
+        octa.add(wireframe);
+
+        octa.position.set(
+            (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 2,
+            0
+        );
+
+        this.scene.add(octa);
+        this.objects.push(octa);
+        this.selectedObject = octa;
+
+        return octa;
+    }
+
+    addTetrahedron() {
+        const geometry = new THREE.TetrahedronGeometry(0.7);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0xffff00,
+            transparent: true,
+            opacity: 0.7,
+            wireframe: false,
+            emissive: 0xffff00,
+            emissiveIntensity: 0.3
+        });
+        const tetra = new THREE.Mesh(geometry, material);
+
+        const wireframe = new THREE.LineSegments(
+            new THREE.EdgesGeometry(geometry),
+            new THREE.LineBasicMaterial({ color: 0xffff00, linewidth: 2 })
+        );
+        tetra.add(wireframe);
+
+        tetra.position.set(
+            (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 2,
+            0
+        );
+
+        this.scene.add(tetra);
+        this.objects.push(tetra);
+        this.selectedObject = tetra;
+
+        return tetra;
+    }
+
     addScannedObject(imageData) {
         // Create a plane with the scanned image as texture
         const texture = new THREE.Texture(imageData);
@@ -181,9 +336,9 @@ export class Scene3D {
             this.selectedObject.rotation.z += rotation.z * 0.1;
         }
 
-        // Apply scale based on pinch distance
+        // Apply scale based on pinch distance - WITH CLAMPING to prevent disappearing
         if (scale !== undefined) {
-            const targetScale = scale * 5; // Amplify the scale effect
+            const targetScale = Math.max(0.5, Math.min(3.0, scale * 5)); // Clamp between 0.5 and 3.0
             this.selectedObject.scale.setScalar(targetScale);
         }
     }

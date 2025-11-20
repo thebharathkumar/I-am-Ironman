@@ -75,6 +75,48 @@
                 </div>
             </div>
         </div>
+
+        <!-- Object Gallery Panel -->
+        <div class="panel gallery-panel hidden" id="gallery-panel">
+            <div class="panel-header">OBJECT GALLERY</div>
+            <div class="panel-content">
+                <div class="gallery-grid">
+                    <div class="gallery-item" data-type="cube">
+                        <div class="gallery-icon">◼️</div>
+                        <div class="gallery-name">Cube</div>
+                    </div>
+                    <div class="gallery-item" data-type="sphere">
+                        <div class="gallery-icon">⚫</div>
+                        <div class="gallery-name">Sphere</div>
+                    </div>
+                    <div class="gallery-item" data-type="torus">
+                        <div class="gallery-icon">⭕</div>
+                        <div class="gallery-name">Torus</div>
+                    </div>
+                    <div class="gallery-item" data-type="cylinder">
+                        <div class="gallery-icon">🛢️</div>
+                        <div class="gallery-name">Cylinder</div>
+                    </div>
+                    <div class="gallery-item" data-type="cone">
+                        <div class="gallery-icon">🔺</div>
+                        <div class="gallery-name">Cone</div>
+                    </div>
+                    <div class="gallery-item" data-type="dodecahedron">
+                        <div class="gallery-icon">💎</div>
+                        <div class="gallery-name">Diamond</div>
+                    </div>
+                    <div class="gallery-item" data-type="octahedron">
+                        <div class="gallery-icon">🔷</div>
+                        <div class="gallery-name">Octahedron</div>
+                    </div>
+                    <div class="gallery-item" data-type="tetrahedron">
+                        <div class="gallery-icon">🔶</div>
+                        <div class="gallery-name">Pyramid</div>
+                    </div>
+                </div>
+                <button class="close-gallery-btn" id="close-gallery">CLOSE</button>
+            </div>
+        </div>
     </div>
 
     <!-- Voice Command Feedback -->
@@ -84,6 +126,12 @@
 
     <!-- Holographic HUD Overlay -->
     <div class="hud-overlay" id="hud-overlay">
+        <!-- Mode Toggle -->
+        <div class="mode-toggle" id="mode-toggle">
+            <button class="mode-btn active" id="mode-object">OBJECT MODE</button>
+            <button class="mode-btn" id="mode-camera">CAMERA MODE</button>
+        </div>
+
         <!-- Top Left - System Stats -->
         <div class="hud-corner hud-top-left">
             <div class="hud-stat">
@@ -122,6 +170,7 @@
             <button class="hud-action-btn" id="add-random-object" title="Add Random Object">+</button>
             <button class="hud-action-btn" id="clear-objects" title="Clear All Objects">×</button>
             <button class="hud-action-btn" id="screenshot" title="Take Screenshot">📷</button>
+            <button class="hud-action-btn" id="object-gallery" title="Object Gallery">🎨</button>
         </div>
 
         <!-- Center Crosshair -->

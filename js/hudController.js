@@ -14,10 +14,17 @@ export class HUDController {
         this.frameCount = 0;
         this.lastTime = performance.now();
 
+        // Set default mode to object (safe mode)
+        window.currentMode = 'object';
+
         this.setupButtons();
         this.startClock();
         this.startFPSCounter();
         this.playSound('activate');
+
+        // Hide camera by default (object mode)
+        document.getElementById('webcam').style.opacity = '0';
+        document.getElementById('hand-canvas').style.opacity = '0';
     }
 
     setupButtons() {
@@ -56,6 +63,34 @@ export class HUDController {
         document.getElementById('screenshot').addEventListener('click', () => {
             this.takeScreenshot();
             this.playSound('scan');
+        });
+
+        // Object gallery
+        document.getElementById('object-gallery').addEventListener('click', () => {
+            this.openGallery();
+            this.playSound('click');
+        });
+
+        // Mode toggle buttons
+        document.getElementById('mode-object').addEventListener('click', () => {
+            this.switchMode('object');
+        });
+
+        document.getElementById('mode-camera').addEventListener('click', () => {
+            this.switchMode('camera');
+        });
+
+        // Gallery items
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                this.selectGalleryItem(item);
+            });
+        });
+
+        // Close gallery button
+        document.getElementById('close-gallery').addEventListener('click', () => {
+            this.closeGallery();
         });
     }
 
@@ -272,5 +307,98 @@ export class HUDController {
 
     getParticlesEnabled() {
         return this.particlesEnabled;
+    }
+
+    switchMode(mode) {
+        const objectBtn = document.getElementById('mode-object');
+        const cameraBtn = document.getElementById('mode-camera');
+
+        if (mode === 'object') {
+            objectBtn.classList.add('active');
+            cameraBtn.classList.remove('active');
+
+            // Disable hand tracking in object mode
+            if (window.jarvisInstance && window.jarvisInstance.handTracking) {
+                document.getElementById('webcam').style.opacity = '0';
+                document.getElementById('hand-canvas').style.opacity = '0';
+            }
+
+            this.showNotification('Object Mode: Safe viewing - no hand tracking');
+            this.playSound('activate');
+
+        } else if (mode === 'camera') {
+            objectBtn.classList.remove('active');
+            cameraBtn.classList.add('active');
+
+            // Enable hand tracking in camera mode
+            if (window.jarvisInstance && window.jarvisInstance.handTracking) {
+                document.getElementById('webcam').style.opacity = '0.3';
+                document.getElementById('hand-canvas').style.opacity = '1';
+            }
+
+            this.showNotification('Camera Mode: Hand tracking active');
+            this.playSound('activate');
+        }
+
+        // Store current mode
+        window.currentMode = mode;
+    }
+
+    openGallery() {
+        const galleryPanel = document.getElementById('gallery-panel');
+        galleryPanel.classList.remove('hidden');
+    }
+
+    closeGallery() {
+        const galleryPanel = document.getElementById('gallery-panel');
+        galleryPanel.classList.add('hidden');
+        this.playSound('click');
+    }
+
+    selectGalleryItem(item) {
+        // Remove previous selection
+        document.querySelectorAll('.gallery-item').forEach(i => {
+            i.classList.remove('selected');
+        });
+
+        // Select clicked item
+        item.classList.add('selected');
+
+        const objectType = item.dataset.type;
+        this.playSound('create');
+
+        // Add the selected object to the scene
+        if (window.jarvisInstance && window.jarvisInstance.scene3D) {
+            const scene = window.jarvisInstance.scene3D;
+
+            switch (objectType) {
+                case 'cube':
+                    scene.addCube();
+                    break;
+                case 'sphere':
+                    scene.addSphere();
+                    break;
+                case 'torus':
+                    scene.addTorus();
+                    break;
+                case 'cylinder':
+                    scene.addCylinder();
+                    break;
+                case 'cone':
+                    scene.addCone();
+                    break;
+                case 'dodecahedron':
+                    scene.addDodecahedron();
+                    break;
+                case 'octahedron':
+                    scene.addOctahedron();
+                    break;
+                case 'tetrahedron':
+                    scene.addTetrahedron();
+                    break;
+            }
+
+            this.showNotification(`${objectType.toUpperCase()} added!`);
+        }
     }
 }

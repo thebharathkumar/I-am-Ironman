@@ -122,6 +122,11 @@ class JARVISInterface {
     }
 
     onHandsDetected(results) {
+        // Skip hand tracking in object mode to prevent objects disappearing
+        if (window.currentMode === 'object') {
+            return;
+        }
+
         if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
             this.currentGesture = null;
             this.uiPanels.updateGestureStatus('None');
@@ -142,7 +147,7 @@ class JARVISInterface {
         // Update UI
         this.uiPanels.updateGestureStatus(gesture.name);
 
-        // Handle gesture interaction
+        // Handle gesture interaction only in camera mode
         this.handleGestureInteraction(gesture, landmarks);
     }
 
