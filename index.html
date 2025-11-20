@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS Holographic Interface</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Video feed for hand tracking (hidden) -->
+    <video id="webcam" autoplay playsinline></video>
+
+    <!-- Canvas for hand tracking visualization -->
+    <canvas id="hand-canvas"></canvas>
+
+    <!-- 3D Scene Container -->
+    <div id="scene-container"></div>
+
+    <!-- UI Panels Container -->
+    <div id="ui-panels">
+        <!-- Status Panel -->
+        <div class="panel status-panel" id="status-panel">
+            <div class="panel-header">JARVIS SYSTEM STATUS</div>
+            <div class="panel-content">
+                <div class="status-item">
+                    <span class="status-label">Hand Tracking:</span>
+                    <span class="status-value" id="hand-status">Initializing...</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Voice Control:</span>
+                    <span class="status-value" id="voice-status">Initializing...</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Gesture:</span>
+                    <span class="status-value" id="gesture-status">None</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Browser Panel -->
+        <div class="panel file-panel hidden" id="file-panel">
+            <div class="panel-header">FILE BROWSER</div>
+            <div class="panel-content" id="file-list">
+                <!-- Files will be dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Object Info Panel -->
+        <div class="panel info-panel" id="info-panel">
+            <div class="panel-header">OBJECT INFO</div>
+            <div class="panel-content">
+                <div class="info-item">
+                    <span class="info-label">Type:</span>
+                    <span class="info-value" id="object-type">None</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Rotation:</span>
+                    <span class="info-value" id="object-rotation">0°, 0°, 0°</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Scale:</span>
+                    <span class="info-value" id="object-scale">1.0x</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scanner Panel -->
+        <div class="panel scanner-panel hidden" id="scanner-panel">
+            <div class="panel-header">OBJECT SCANNER</div>
+            <div class="panel-content">
+                <div class="scanner-preview" id="scanner-preview"></div>
+                <button class="scan-button" id="scan-button">SCAN OBJECT</button>
+                <div class="scanner-instructions">
+                    Hold an object in front of the camera and click SCAN
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Command Feedback -->
+    <div id="voice-feedback" class="voice-feedback hidden">
+        <span id="voice-command-text"></span>
+    </div>
+
+    <!-- Gesture Guide -->
+    <div class="gesture-guide" id="gesture-guide">
+        <div class="guide-title">GESTURE CONTROLS</div>
+        <div class="guide-item">👌 Pinch - Select/Grab</div>
+        <div class="guide-item">✋ Open Palm - Menu</div>
+        <div class="guide-item">👈 Swipe - Navigate</div>
+        <div class="guide-item">🤏 Spread - Zoom</div>
+    </div>
+
+    <!-- Startup Screen -->
+    <div id="startup-screen" class="startup-screen">
+        <div class="startup-content">
+            <h1 class="jarvis-title">J.A.R.V.I.S.</h1>
+            <p class="jarvis-subtitle">Just A Rather Very Intelligent System</p>
+            <div class="startup-status">Initializing holographic interface...</div>
+            <button id="start-button" class="start-button">ACTIVATE</button>
+        </div>
+    </div>
+
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- MediaPipe Hands -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+    <!-- Application Scripts -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
